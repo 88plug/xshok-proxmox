@@ -47,6 +47,10 @@ as gnome stupidly enables sleep by default!
 finally reboot...you should now have a folder
 /run/user/$SOMENUMBER/gdm/Xauthority
 
+NOW YOU MUST COMMENT OUT
+auth   required        pam_succeed_if.so user != root quiet_success
+from /etc/pam.d/gdm-password to login with nomachine
+
 replace $SOMENUBMER in lines below! :)
 
 DISPLAY=:0 XAUTHORITY=/run/user/121/gdm/Xauthority sudo nvidia-settings -a [gpu:0]/GPUFanControlState=1 -a [fan-0]/GPUTargetFanSpeed=80
