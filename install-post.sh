@@ -160,14 +160,6 @@ sed -i "s/#bwlimit:.*/bwlimit: 0/" /etc/vzdump.conf
 sed -i "s/#pigz:.*/pigz: 1/" /etc/vzdump.conf
 sed -i "s/#ionice:.*/ionice: 5/" /etc/vzdump.conf
 
-## Bugfix: pve 5.1 high swap usage with low memory usage
-echo "vm.swappiness=10" >> /etc/sysctl.conf
-sysctl -p
-
-## Bugfix: reserve 512MB memory for system
-echo "vm.min_free_kbytes = 524288" >> /etc/sysctl.conf
-sysctl -p
-
 ## Remove subscription banner
 if [ -f "/usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js" ] ; then
   sed -i "s/data.status !== 'Active'/false/g" /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js
@@ -200,23 +192,26 @@ EOF
   fi
 fi
 
-## Increase max user watches
-# BUG FIX : No space left on device
-echo 1048576 > /proc/sys/fs/inotify/max_user_watches
-echo "fs.inotify.max_user_watches=1048576" >> /etc/sysctl.conf
-sysctl -p /etc/sysctl.conf
-
 ## Increase max FD limit / ulimit
 cat <<EOF >> /etc/security/limits.conf
-# eXtremeSHOK.com Increase max FD limit / ulimit
-* soft     nproc          256000
-* hard     nproc          256000
-* soft     nofile         256000
-* hard     nofile         256000
-root soft     nproc          256000
-root hard     nproc          256000
-root soft     nofile         256000
-root hard     nofile         256000
+* soft     nproc          1048576
+* hard     nproc          1048576
+* soft     nofile         1048576
+* hard     nofile         1048576
+root soft     nproc          unlimited
+root hard     nproc          unlimited
+root soft     nofile         unlimited
+root hard     nofile         unlimited
+EOF
+
+cat <<EOF >> /etc/sysctl.conf
+vm.min_free_kbytes = 1500000
+vm.swappiness = 0
+fs.inotify.max_queued_events=1048576
+fs.inotify.max_user_instances=1048576
+fs.inotify.max_user_watches=1048576
+vm.max_map_count=262144
+fs.aio-max-nr=524288
 EOF
 
 ## Enable TCP BBR congestion control
@@ -267,17 +262,17 @@ if [ "$(command -v zfs)" != "" ] ; then
 # eXtremeSHOK.com ZFS tuning
 
 # Use 1/16 RAM for MAX cache, 1/8 RAM for MIN cache, or 1GB
-options zfs zfs_arc_min=$MY_ZFS_ARC_MIN
+# options zfs zfs_arc_min=$MY_ZFS_ARC_MIN
 options zfs zfs_arc_max=$MY_ZFS_ARC_MAX
 
 # use the prefetch method
-options zfs l2arc_noprefetch=0
+# options zfs l2arc_noprefetch=0
 
 # max write speed to l2arc
 # tradeoff between write/read and durability of ssd (?)
 # default : 8 * 1024 * 1024
 # setting here : 500 * 1024 * 1024
-options zfs l2arc_write_max=524288000
+# options zfs l2arc_write_max=524288000
 EOF
 fi
 
