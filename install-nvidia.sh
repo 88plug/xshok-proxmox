@@ -15,6 +15,13 @@ wget https://us.download.nvidia.com/XFree86/Linux-x86_64/460.56/NVIDIA-Linux-x86
 chmod +x NVIDIA-Linux-x86_64-460.56.run
 ./NVIDIA-Linux-x86_64-460.56.run --silent --no-drm --run-nvidia-xconfig
 
+ Latest New Feature Branch Version: 465.27
+  Latest Production Branch Version: 460.73.01
+  
+wget https://us.download.nvidia.com/XFree86/Linux-x86_64/465.27/NVIDIA-Linux-x86_64-465.27.run
+chmod +x NVIDIA-Linux-x86_64-465.27.run
+./NVIDIA-Linux-x86_64-465.27.run --silent --no-drm --run-nvidia-xconfig
+
 Installer will ask to create modeprobe file, say YES! 
 Reboot
 Run ./NVIDIA-Linux-x86_64-455.38.run again
