@@ -290,5 +290,12 @@ timedatectl set-timezone $timezone
 
 #Add MSR to startup for XMRig
 echo "msr" >> /etc/modules
+echo "vfio" >> /etc/modules
+echo "vfio_iommu_type1" >> /etc/modules
+echo "vfio_pci" >> /etc/modules
+echo "vfio_virqfd" >> /etc/modules
+echo "blacklist radeon" >> /etc/modprobe.d/blacklist.conf 
+echo "blacklist nouveau" >> /etc/modprobe.d/blacklist.conf 
+echo "blacklist nvidia" >> /etc/modprobe.d/blacklist.conf 
 reboot now
 
