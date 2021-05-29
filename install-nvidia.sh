@@ -35,6 +35,8 @@ nvidia-smi!
 
 Now run ./docker.sh to install nvidia-docker!
 
+#nvidia-xconfig -a --cool-bits=31 --allow-empty-initial-configuration ; apt-get install -y gnome ; systemctl set-default graphical.target
+
 Unlock card with
 sudo nvidia-xconfig -a --cool-bits=31 --allow-empty-initial-configuration
 nvidia-smi -pl 200 -i 0
