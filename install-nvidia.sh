@@ -2,29 +2,23 @@ xserver-xorg-dev dkms
 
 #!/bin/bash
 apt-get install build-essential pve-headers-$(uname -r) pkg-config libgtk-3-0 libglvnd-dev
+apt-get install build-essential headers-$(uname -r) pkg-config libgtk-3-0 libglvnd-dev
+sudo bash -c "echo blacklist nouveau > /etc/modprobe.d/blacklist-nvidia-nouveau.conf"
+sudo bash -c "echo options nouveau modeset=0 >> /etc/modprobe.d/blacklist-nvidia-nouveau.conf"
+update-initramfs -u
 update-grub
-REBOOT
+reboot
 
 
-#Old Driver
-#wget https://us.download.nvidia.com/XFree86/Linux-x86_64/455.38/NVIDIA-Linux-x86_64-455.38.run
-#chmod +x NVIDIA-Linux-x86_64-455.38.run
-#./NVIDIA-Linux-x86_64-455.38.run
-
-wget https://us.download.nvidia.com/XFree86/Linux-x86_64/460.56/NVIDIA-Linux-x86_64-460.56.run
-chmod +x NVIDIA-Linux-x86_64-460.56.run
-./NVIDIA-Linux-x86_64-460.56.run --silent --no-drm --run-nvidia-xconfig
-
- Latest New Feature Branch Version: 465.27
-  Latest Production Branch Version: 460.73.01
-  
-wget https://us.download.nvidia.com/XFree86/Linux-x86_64/465.27/NVIDIA-Linux-x86_64-465.27.run
-chmod +x NVIDIA-Linux-x86_64-465.27.run
-./NVIDIA-Linux-x86_64-465.27.run --silent --no-drm --run-nvidia-xconfig
+wget https://us.download.nvidia.com/XFree86/Linux-x86_64/460.80/NVIDIA-Linux-x86_64-460.80.run
+chmod +x NVIDIA-Linux-x86_64-460.80.run
+./NVIDIA-Linux-x86_64-460.80.run --silent --no-drm --run-nvidia-xconfig
 
 Installer will ask to create modeprobe file, say YES! 
 Reboot
-Run ./NVIDIA-Linux-x86_64-455.38.run again
+Run ./NVIDIA-Linux-x86_64-460.80.run again
+
+
 
 WARNING: nvidia-installer was forced to guess the X library path '/usr/lib' and X module path '/usr/lib/xorg/modules'; these paths were not queryable from the system.  If X fails to find the NVIDIA X driver module, please
            install the `pkg-config` utility and the X.Org SDK/development package for your distribution and reinstall the driver
