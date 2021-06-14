@@ -3,8 +3,8 @@ xserver-xorg-dev dkms
 #!/bin/bash
 apt-get install build-essential pve-headers-$(uname -r) pkg-config libgtk-3-0 libglvnd-dev
 apt-get install build-essential headers-$(uname -r) pkg-config libgtk-3-0 libglvnd-dev
-sudo bash -c "echo blacklist nouveau > /etc/modprobe.d/blacklist-nvidia-nouveau.conf"
-sudo bash -c "echo options nouveau modeset=0 >> /etc/modprobe.d/blacklist-nvidia-nouveau.conf"
+bash -c "echo blacklist nouveau > /etc/modprobe.d/blacklist-nvidia-nouveau.conf"
+bash -c "echo options nouveau modeset=0 >> /etc/modprobe.d/blacklist-nvidia-nouveau.conf"
 update-initramfs -u
 update-grub
 reboot
