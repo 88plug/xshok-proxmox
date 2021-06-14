@@ -16,7 +16,8 @@ reboot
 
 wget https://us.download.nvidia.com/XFree86/Linux-x86_64/460.80/NVIDIA-Linux-x86_64-460.80.run
 chmod +x NVIDIA-Linux-x86_64-460.80.run
-./NVIDIA-Linux-x86_64-460.80.run --silent --no-drm --run-nvidia-xconfig
+./NVIDIA-Linux-x86_64-460.80.run --silent
+#--no-drm --run-nvidia-xconfig
 
 Installer will ask to create modeprobe file, say YES! 
 Reboot
