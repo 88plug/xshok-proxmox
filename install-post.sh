@@ -288,6 +288,9 @@ timezone=$(curl https://ipapi.co/$(dig +short myip.opendns.com @resolver1.opendn
 echo "Got $timezone from $(dig +short myip.opendns.com @resolver1.opendns.com)"
 timedatectl set-timezone $timezone
 
+#Enable cron
+systemctl enable cron.service
+
 #Add MSR to startup for XMRig
 echo "msr" >> /etc/modules
 echo "vfio" >> /etc/modules
