@@ -291,6 +291,9 @@ timedatectl set-timezone $timezone
 #Enable cron
 systemctl enable cron.service
 
+#Add vaccum size to limit log sizes
+journalctl --vacuum-size=1M
+
 #Add MSR to startup for XMRig
 echo "msr" >> /etc/modules
 echo "vfio" >> /etc/modules
