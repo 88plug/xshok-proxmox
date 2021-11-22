@@ -31,11 +31,11 @@ export LC_ALL="C"
 cpu=$(cat /proc/cpuinfo)
 if [[ $cpu == *"GenuineIntel"* ]]; then
 echo "Got Intel"
-  sed -i 's/quiet/quiet intel_iommu=on/g' /etc/default/grub
+  sed -i 's/quiet/quiet intel_iommu=on iommu=pt/g' /etc/default/grub
  update-grub
 else
 echo "Got AMD"
-  sed -i 's/quiet/quiet amd_iommu=on/g' /etc/default/grub
+  sed -i 's/quiet/quiet amd_iommu=on iommu=pt/g' /etc/default/grub
  update-grub
 fi
 
