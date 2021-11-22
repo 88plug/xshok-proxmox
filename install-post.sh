@@ -28,6 +28,18 @@
 export LANG="en_US.UTF-8"
 export LC_ALL="C"
 
+cpu=$(cat /proc/cpuinfo)
+if [[ $cpu == *"GenuineIntel"* ]]; then
+echo "Got Intel"
+  sed -i 's/quiet/quiet intel_iommu=on/g' /etc/default/grub
+ update-grub
+else
+echo "Got AMD"
+  sed -i 's/quiet/quiet amd_iommu=on/g' /etc/default/grub
+ update-grub
+fi
+
+
 ## Force APT to use IPv4
 echo -e "Acquire::ForceIPv4 \"true\";\\n" > /etc/apt/apt.conf.d/99force-ipv4
 
