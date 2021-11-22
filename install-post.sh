@@ -31,6 +31,7 @@ export LC_ALL="C"
 cpu=$(cat /proc/cpuinfo)
 if [[ $cpu == *"GenuineIntel"* ]]; then
 echo "Got Intel"
+echo "When using x99 platform must update root=ZFS=rpool/ROOT/pve-1 boot=zfs intel_iommu=on if booting with zfs, then do pve-efiboot-tool refresh"
   sed -i 's/quiet/quiet intel_iommu=on iommu=pt/g' /etc/default/grub
  update-grub
 else
