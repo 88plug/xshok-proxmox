@@ -316,5 +316,6 @@ echo "vfio_virqfd" >> /etc/modules
 echo "blacklist radeon" >> /etc/modprobe.d/blacklist.conf 
 echo "blacklist nouveau" >> /etc/modprobe.d/blacklist.conf 
 echo "blacklist nvidia" >> /etc/modprobe.d/blacklist.conf 
+echo "blacklist amdgpu" >> /etc/modprobe.d/blacklist.conf
 reboot now
 
