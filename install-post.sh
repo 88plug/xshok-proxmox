@@ -30,14 +30,26 @@ export LC_ALL="C"
 
 cpu=$(cat /proc/cpuinfo)
 if [[ $cpu == *"GenuineIntel"* ]]; then
-echo "Got Intel"
-echo "When using x99 platform must update root=ZFS=rpool/ROOT/pve-1 boot=zfs intel_iommu=on if booting with zfs, then do pve-efiboot-tool refresh"
-  sed -i 's/quiet/quiet intel_iommu=on iommu=pt/g' /etc/default/grub
- update-grub
+  echo "Got Intel"
+  echo "When using x99 platform must update root=ZFS=rpool/ROOT/pve-1 boot=zfs intel_iommu=on if booting with zfs, then do pve-efiboot-tool refresh"
+if [[ -f /etc/kernel/cmdline ]]; then
+  sed -i 's/boot=zfs/boot=zfs intel_iommu=on iommu=pt/g' /etc/kernel/cmdline
+  update-initramfs -u -k all
 else
-echo "Got AMD"
+  sed -i 's/quiet/quiet intel_iommu=on iommu=pt/g' /etc/default/grub
+  update-grub
+fi
+
+else
+  echo "Got AMD"
+if [[ -f /etc/kernel/cmdline ]]; then
+  sed -i 's/boot=zfs/boot=zfs amd_iommu=on iommu=pt/g' /etc/kernel/cmdline
+  update-initramfs -u -k all
+else
   sed -i 's/quiet/quiet amd_iommu=on iommu=pt/g' /etc/default/grub
- update-grub
+  update-grub
+fi
+
 fi
 
 
